@@ -7,6 +7,12 @@ dashboard.
 
 **Live demo:** _add your deployed Streamlit Cloud link here once deployed_
 
+## Screenshots
+
+![Summarizer input screen](demo1.png)
+![Structured summary output](demo2.png)
+
+
 ## Key findings
 
 | Metric | Value |
