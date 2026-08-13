@@ -5,7 +5,7 @@ Formula 1, covering the 2000–2024 seasons (7,134 classified race entries).
 Includes a full cleaning/analysis pipeline and an interactive Streamlit
 dashboard.
 
-**Live demo:** _add your deployed Streamlit Cloud link here once deployed_
+**Live demo:** (https://f1-qualifying-performance-and-race-outcomes-3z4txjj6drypztbran.streamlit.app/)
 
 ## Screenshots
 
