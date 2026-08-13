@@ -23,10 +23,15 @@ dashboard.
 Full write-up: [`F1_Project_Report.pdf`](./F1_Project_Report.pdf)
 
 ##Features
-##Statistical analysis pipeline — cleans and merges six raw F1 datasets (races, results, qualifying, drivers, constructors, status), removes DNFs, and engineers derived variables (era, grid_group, pos_change, is_podium).
+
+Statistical analysis pipeline — cleans and merges six raw F1 datasets (races, results, qualifying, drivers, constructors, status), removes DNFs, and engineers derived variables (era, grid_group, pos_change, is_podium).
+
 Correlation analysis — Spearman and Pearson correlation between qualifying and finish position, computed overall and broken down by era (2000–2009, 2010–2019, 2020–2024).
+
 Hypothesis testing — a chi-square test of independence checks whether starting grid group significantly predicts podium finishes.
+
 Linear regression — a single-variable model (qualifying position → finish position) reports slope, intercept, and R², both as a standalone analysis and live inside the dashboard on any filtered subset of the data.
+`
 Interactive Streamlit dashboard — filter by year range, team, driver, and era; explore four tabs (scatter plot, position-change distribution, podium probability, and summary/era analysis) that all update dynamically.
 
 
