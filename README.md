@@ -22,35 +22,14 @@ dashboard.
 
 Full write-up: [`F1_Project_Report.pdf`](./F1_Project_Report.pdf)
 
-##Features
+## Features
 
-Statistical analysis pipeline — cleans and merges six raw F1 datasets (races, results, qualifying, drivers, constructors, status), removes DNFs, and engineers derived variables (era, grid_group, pos_change, is_podium).
+- Statistical analysis pipeline — cleans and merges six raw F1 datasets (races, results, qualifying, drivers, constructors, status), removes DNFs, and engineers derived variables (era, grid_group, pos_change, is_podium).
+- Correlation analysis — Spearman and Pearson correlation between qualifying and finish position, computed overall and broken down by era (2000–2009, 2010–2019, 2020–2024).
+- Hypothesis testing — a chi-square test of independence checks whether starting grid group significantly predicts podium finishes.
+- Linear regression — a single-variable model (qualifying position → finish position) reports slope, intercept, and R², both as a standalone analysis and live inside the dashboard on any filtered subset of the data.
+- Interactive Streamlit dashboard — filter by year range, team, driver, and era; explore four tabs (scatter plot, position-change distribution, podium probability, and summary/era analysis) that all update dynamically.
 
-Correlation analysis — Spearman and Pearson correlation between qualifying and finish position, computed overall and broken down by era (2000–2009, 2010–2019, 2020–2024).
-
-Hypothesis testing — a chi-square test of independence checks whether starting grid group significantly predicts podium finishes.
-
-Linear regression — a single-variable model (qualifying position → finish position) reports slope, intercept, and R², both as a standalone analysis and live inside the dashboard on any filtered subset of the data.
-`
-Interactive Streamlit dashboard — filter by year range, team, driver, and era; explore four tabs (scatter plot, position-change distribution, podium probability, and summary/era analysis) that all update dynamically.
-
-
-## Project structure
-
-```
-.
-├── app.py                  # Streamlit dashboard (entry point for the live demo)
-├── src/
-│   ├── cleaning.py         # Raw data -> data/cleaned_f1.csv
-│   └── analysis.py         # Standalone statistical analysis + matplotlib plots
-├── data/
-│   ├── README.md           # Where to get the raw data
-│   └── cleaned_f1.csv      # Cleaned dataset used by app.py (generate via cleaning.py)
-├── .streamlit/
-│   └── config.toml         # Dashboard theme
-├── requirements.txt
-└── README.md
-```
 
 ## Running locally
 
@@ -74,6 +53,9 @@ streamlit run app.py
 ```
 
 The app will open at `http://localhost:8501`.
+
+# To reproduce the standalone statistical analysis and plots:
+python src/analysis.py
 
 ## Saving this project locally
 
@@ -114,16 +96,32 @@ git push -u origin main
 Any time you push new commits to `main`, the live demo redeploys
 automatically.
 
+
+## Project structure
+
+```
+.
+├── app.py                  # Streamlit dashboard (entry point for the live demo)
+├── src/
+│   ├── cleaning.py         # Raw data -> data/cleaned_f1.csv
+│   └── analysis.py         # Standalone statistical analysis + matplotlib plots
+├── data/
+│   ├── README.md           # Where to get the raw data
+│   └── cleaned_f1.csv      # Cleaned dataset used by app.py (generate via cleaning.py)
+├── .streamlit/
+│   └── config.toml         # Dashboard theme
+├── requirements.txt
+└── README.md
+```
+
 ## Tech stack
 
 Python · pandas · SciPy · scikit-learn · Streamlit · Plotly · Matplotlib · Seaborn
 
 ## Limitations
 
-- DNFs and unclassified finishes are excluded, which biases the sample toward
-  race completions.
-- No contextual variables (weather, safety cars, tire strategy) are modeled.
-- Grid group boundaries (Top 3 / P4–P10 / P11+) are a convention, not derived
-  from the data.
-
-See the full report for details.
+- DNF exclusion bias — drivers who didn't finish are excluded, which skews the sample toward successful completions and likely understates the qualifying–finish relationship for back-of-grid starters.
+- No contextual variables — weather, safety cars, tire strategy, and team resources aren't modeled; the analysis isolates the qualifying effect alone.
+- Grid group boundaries are a convention — Top 3 / P4–P10 / P11+ is a reasonable but somewhat arbitrary split; podium-probability figures would shift under different cut points.
+- Qualifying format changed over the period studied — the current Q1/Q2/Q3 format started in 2006, and sprint qualifying weekends appeared from 2021 onward; all qualifying positions are treated equivalently.
+- The live demo is hosted on Streamlit Community Cloud's free tier and may take a few seconds to wake up if it's been idle.
